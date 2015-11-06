@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">xkcdMobile</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="download_button">Save Comic</string>
+
+</resources>
