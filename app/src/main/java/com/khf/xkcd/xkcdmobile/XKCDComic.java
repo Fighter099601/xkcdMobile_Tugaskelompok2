@@ -4,6 +4,16 @@ import android.graphics.Bitmap;
 
 public class XKCDComic {
     private String titleName;
+    private String altText;
+
+    public String getAltText () {
+        return altText;
+    }
+
+    public void setAltText (String altText) {
+        this.altText = altText;
+    }
+
     private Bitmap bitmap;
     private String imageURL;
     private String currentURL;

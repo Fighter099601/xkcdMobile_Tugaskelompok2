@@ -1,17 +1,22 @@
 package com.khf.xkcd.xkcdmobile;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URL;
@@ -21,15 +26,19 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 public class FullscreenActivity extends AppCompatActivity {
 
     private String viewTitle;
+    private String altTitle;
     private String imageURL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate (savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
 
-        imageURL = getIntent().getStringExtra("imageURL");
-        viewTitle = getIntent().getStringExtra("imageTitle");
+	    Intent callIntent = getIntent();
+
+        imageURL = callIntent.getStringExtra ("imageURL");
+        viewTitle = callIntent.getStringExtra ("imageTitle");
+        altTitle = callIntent.getStringExtra ("imageAlt");
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -39,13 +48,30 @@ public class FullscreenActivity extends AppCompatActivity {
         }
 
         new FullscreenLoader(this).execute(imageURL);
+
+	    findViewById (R.id.altText).setOnClickListener (new View.OnClickListener () {
+		    @Override
+		    public void onClick (View v) {
+			    TextView textView = new TextView (FullscreenActivity.this);
+			    textView.setBackgroundColor (Color.YELLOW);
+			    textView.setText (altTitle);
+			    textView.setPadding (5, 10, 5, 10);
+			    textView.setEllipsize (TextUtils.TruncateAt.END);
+			    textView.setLayoutParams (new ViewGroup.LayoutParams (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+				Toast toast = new Toast (getApplicationContext ());
+			    toast.setView (textView);
+			    toast.setDuration (Toast.LENGTH_LONG);
+			    toast.show ();
+		    }
+	    });
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // This ID represents the Home or Up button.
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
@@ -61,6 +87,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 Toast.makeText(this, "Comic already downloaded...", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
 
 class FullscreenLoader extends AsyncTask<String, Integer, Bitmap> {

@@ -5,6 +5,7 @@
 
     <ImageView
         android:id="@+id/fullscreen_content"
+        android:contentDescription="FullScreen Image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true"
@@ -36,10 +37,19 @@
                 style="?metaButtonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:textColor="#fff"
                 android:onClick="downloadComic"
                 android:text="@string/download_button" />
+
+            <Button
+                android:id="@+id/altText"
+                style="?metaButtonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="View Alt"
+                android:textColor="#fff"/>
 
         </LinearLayout>
     </FrameLayout>

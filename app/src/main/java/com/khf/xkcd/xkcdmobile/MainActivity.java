@@ -85,9 +85,12 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         Intent fullscreenIntent = new Intent(this, FullscreenActivity.class);
         currentUrl = findViewById(R.id.comicTitle).getContentDescription().toString();
         String title = ((TextView) findViewById(R.id.comicTitle)).getText().toString();
+	    String alt = findViewById(R.id.progressBar).getContentDescription ().toString ();
         Toast.makeText(this, title, Toast.LENGTH_LONG).show();
         fullscreenIntent.putExtra("imageURL", currentUrl);
         fullscreenIntent.putExtra("imageTitle", title);
+	    fullscreenIntent.putExtra ("imageAlt", alt);
+
         startActivity(fullscreenIntent);
     }
 
@@ -150,29 +153,27 @@ class NewComicLoader extends AsyncTask<String, Integer, XKCDComic> {
 
     @Override
     protected void onPostExecute(XKCDComic xkcdComic) {
-        super.onPostExecute(xkcdComic);
+        super.onPostExecute (xkcdComic);
 
         ProgressBar mProgressBar = (ProgressBar) mActivity.findViewById(R.id.progressBar);
-        mProgressBar.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility (View.INVISIBLE);
 
         TextView textView = (TextView) mActivity.findViewById(R.id.comicTitle);
         ImageView imageView = (ImageView) mActivity.findViewById(R.id.comicImage);
-        Button mButton = (Button) mActivity.findViewById(R.id.prevButton);
 
         if(xkcdComic != null) {
             textView.setText(xkcdComic.getTitle());
-            textView.setTextColor(Color.WHITE);
-            textView.setContentDescription(xkcdComic.getImageURL());
+            textView.setTextColor (Color.WHITE);
+            textView.setContentDescription (xkcdComic.getImageURL ());
 
-            imageView.setImageBitmap(xkcdComic.getImage());
-            imageView.setContentDescription(xkcdComic.getCurrentURL());
+            imageView.setImageBitmap (xkcdComic.getImage ());
+            imageView.setContentDescription (xkcdComic.getCurrentURL ());
 
-            mButton.setContentDescription(xkcdComic.getPrevURL());
+            mActivity.findViewById(R.id.prevButton).setContentDescription (xkcdComic.getPrevURL ());
+            mActivity.findViewById(R.id.nextButton).setContentDescription (xkcdComic.getNextURL ());
 
-            mButton = (Button)mActivity.findViewById(R.id.nextButton);
-            mButton.setContentDescription(xkcdComic.getNextURL());
+            mProgressBar.setContentDescription (xkcdComic.getAltText ());
         }
-
     }
 
     @Override
@@ -194,6 +195,7 @@ class NewComicLoader extends AsyncTask<String, Integer, XKCDComic> {
             Element mainImg = mainDiv.getElementsByTag("img").first();
             imgURL = mainImg.absUrl("src");
             xkcdComic.setTitle(mainImg.attr("alt"));
+            xkcdComic.setAltText (mainImg.attr("title"));
             publishProgress(1);
 
             URL url = new URL(imgURL);
