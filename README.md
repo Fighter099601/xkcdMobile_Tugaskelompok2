@@ -23,18 +23,18 @@ Features
 TODO
 ====
 
-* A list to select comics
+* A list to select comics from 
 * Add to favorites
-* Display alt-text
 
 
 Well, I want to contribute. What do I do?
 =========================================
 
-I will soon upload a CONTRIB.md outlining any guidelines to follow. For now
+I will soon upload a CONTRIBUTING.md outlining any guidelines to follow. For now
 
 * Fork the project 
-* Hack on any features you think are needed =)
+* Create a new branch describing the feature/issue you are about to hack. e.g fix/xxx or feature/xxx
+* Hack, hack and hack!
 * Send a PR 
 * Also upload an APK (in your Releases page) or mail it to aulisius7[at]gmail[dot]com or upload screenshots.
   This is to show/verify the changes done.
