@@ -4,10 +4,14 @@ import android.app.Activity
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.AsyncTask
+import android.util.JsonReader
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.IOException
@@ -81,6 +85,15 @@ class NewComicLoader(private val mActivity: Activity) : AsyncTask<String, Int, X
             publishProgress(4)
 
             xkcdComic.currentURL = params[1]
+
+            val client = OkHttpClient()
+
+            val req = Request.Builder().url(params[0] + "/info.0.json").build()
+
+            val res = client.newCall(req).execute()
+
+            Toast.makeText(mActivity.applicationContext, res.body().string(), Toast.LENGTH_LONG).show()
+
 
         } catch (e: IOException) {
             e.printStackTrace()

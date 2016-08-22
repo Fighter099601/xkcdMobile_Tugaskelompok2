@@ -5,7 +5,6 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -70,16 +69,12 @@ class ComicDownloader {
 
         val request = DownloadManager.Request(Uri.parse(url))
         request.setDescription("Downloading the comic...")
-        request.setTitle(fileName!! + fileExtension!!)
+        request.setTitle(fileName + fileExtension)
 
-        // in order for this if to run, you must use the android 3.2 to compile your app
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            request.allowScanningByMediaScanner()
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        }
+        request.allowScanningByMediaScanner()
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         request.setDestinationInExternalPublicDir(dirName, fileName + fileExtension)
 
-        // get download service and enqueue file
         manager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
         return manager!!.enqueue(request)

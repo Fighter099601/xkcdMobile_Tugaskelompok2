@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        baseUrl = "http://xkcd.org"
+        baseUrl = "http://xkcd.com"
         currentUrl = "/"
 
         findViewById(R.id.parent)!!.setOnTouchListener(SwipeHandler(applicationContext, this))
