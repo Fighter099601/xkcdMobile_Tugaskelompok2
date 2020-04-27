@@ -6,10 +6,15 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // retrofit, gson
+        implement 'com.google.code.gson:gson:2.6.2'
+        implement'com.squareup.retrofit2:retrofit:2.0.2'
+        implement 'com.squareup.retrofit2:converter-gson:2.0.2'
+        //recyclerview
+        implement 'com.android.support:recyclerview-v7:24.2.0'
     }
 }
 

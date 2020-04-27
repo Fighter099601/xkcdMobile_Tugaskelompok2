@@ -2,6 +2,7 @@ package com.maelstrom.xkcd.xkcdmobile
 
 import android.app.Activity
 import android.app.DownloadManager
+import android.app.Fragment
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Uri

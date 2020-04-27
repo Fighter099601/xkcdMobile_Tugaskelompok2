@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        baseUrl = "http://xkcd.com"
-        currentUrl = "/"
+        baseUrl = "https://xkcd.com/2273/"
+        currentUrl = "https://imgs.xkcd.com/comics/truck_proximity.png"
 
         findViewById(R.id.parent)!!.setOnTouchListener(SwipeHandler(applicationContext, this))
         NewComicLoader(this).execute(baseUrl, currentUrl)
